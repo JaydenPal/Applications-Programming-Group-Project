@@ -1,40 +1,71 @@
 package edu.utsa.cs3443.application_programming_group_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.Button;
+import android.view.View;
+import android.content.Intent;
+import android.media.MediaPlayer;
 
 public class MainActivity extends AppCompatActivity {
+
+    private MediaPlayer music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Start music service
+        Intent musicServiceIntent = new Intent(this, MusicService.class);
+        startService(musicServiceIntent);
+
+        // Start music playback
+        music = MediaPlayer.create(this, R.raw.music);
+        music.setLooping(true);
+        music.start();
+
         int diff = 0;
 
         Button play = findViewById(R.id.playButton);
         Button settings = findViewById(R.id.settingButton);
         Button stats = findViewById(R.id.statButton2);
-        /*Button easy = findViewById(R.id.easyMode);
-        Button medium = findViewById(R.id.medMode);
-        Button hard = findViewById(R.id.hardMode);*/
 
-        play.setOnClickListener(new GameController(getApplicationContext(), this, diff)); /* pass in the difficulty of the game here
-                                                                                               *  maybe use pre-proc definition */
-        settings.setOnClickListener(new SettingsController(getApplicationContext(), this));
-        stats.setOnClickListener(new StatsController(getApplicationContext(), this));
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        /*  Note from Lauren:
-        *       I think there'd be some weirdness having
-        *       the buttons on the screen. I'll have to
-        *       tinker with it some more, but for the time
-        *       being, I've just commented it out.
-        */
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        /*easy.setOnClickListener(diff = 0);
-        medium.setOnClickListener(diff = 1);
-        hard.setOnClickListener(diff = 2);*/
+        stats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Stop music service
+        Intent musicServiceIntent = new Intent(this, MusicService.class);
+        stopService(musicServiceIntent);
+
+        // Stop music playback
+        music.stop();
+        music.release();
     }
 }
+
