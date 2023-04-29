@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
         Button play = findViewById(R.id.playButton);
         Button settings = findViewById(R.id.settingButton);
         Button stats = findViewById(R.id.statButton2);
+        /*Button easy = findViewById(R.id.easyMode);
+        Button medium = findViewById(R.id.medMode);
+        Button hard = findViewById(R.id.hardMode);*/
+
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
