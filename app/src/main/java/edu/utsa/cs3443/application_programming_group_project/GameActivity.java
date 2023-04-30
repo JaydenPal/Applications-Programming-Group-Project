@@ -92,10 +92,14 @@ public class GameActivity extends AppCompatActivity {
         long diff = 1000;
 
         timer = new CountDownTimer(maxCounter , diff ) {
-
+            private long timeElapsed;
+            public long getTimeElapsed(){
+                return timeElapsed;
+            }
             public void onTick(long millisUntilFinished) {
                 String time;
                 long diff = maxCounter - millisUntilFinished;
+                timeElapsed = diff;
                 long timeInSec = diff / 1000;
                 long minute =  timeInSec / 60;
                 long second = timeInSec % 60;
