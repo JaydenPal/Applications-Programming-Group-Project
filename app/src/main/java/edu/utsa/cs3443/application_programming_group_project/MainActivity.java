@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         //initialize difficulty
         Difficulty difficulty = Difficulty.MEDIUM;
         // Start music playback
-        MediaPlayerManager.getInstance().startMusic(this);
+        if(!MediaPlayerManager.getInstance().isCreated() && MediaPlayerManager.getInstance().isMusicOn()) {
+            MediaPlayerManager.getInstance().startMusic(this);
+        }
         //get buttons
         Button play = findViewById(R.id.playButton);
         Button settings = findViewById(R.id.settingButton);

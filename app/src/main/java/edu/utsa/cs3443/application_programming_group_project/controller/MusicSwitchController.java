@@ -16,10 +16,12 @@ public class MusicSwitchController implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         Switch musicSwitch = (Switch) view;
-        if(musicSwitch.isChecked()){
+        if(!musicSwitch.isChecked()){
             MediaPlayerManager.getInstance().stopMusic();
+            MediaPlayerManager.getInstance().setMusicOn(false);
         } else{
             MediaPlayerManager.getInstance().startMusic(settingsActivity);
+            MediaPlayerManager.getInstance().setMusicOn(true);
         }
     }
 }

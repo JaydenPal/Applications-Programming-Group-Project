@@ -3,9 +3,11 @@ package edu.utsa.cs3443.application_programming_group_project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,6 +23,11 @@ import edu.utsa.cs3443.application_programming_group_project.controller.KeyBoard
 public class GameActivity extends AppCompatActivity {
     private char[] wordDisplay;
     private String word;
+    private CountDownTimer timer;
+
+    public CountDownTimer getTimer(){
+        return this.timer;
+    }
 
     public char[] getWordDisplay() {
         return wordDisplay;
@@ -78,18 +85,32 @@ public class GameActivity extends AppCompatActivity {
         //make keyboard controller
         KeyBoardController keyBoardController = new KeyBoardController(this);
 
-        TextView t2 = findViewById(R.id.time);
+        TextView timerText = findViewById(R.id.timetowin);
+        TextView inGameTimer = findViewById(R.id.time);
 
         long maxCounter = 3000000;
         long diff = 1000;
 
-        new CountDownTimer(maxCounter , diff ) {
+        timer = new CountDownTimer(maxCounter , diff ) {
 
             public void onTick(long millisUntilFinished) {
+                String time;
                 long diff = maxCounter - millisUntilFinished;
                 long timeInSec = diff / 1000;
-                String s = "Time: \n" + timeInSec / 60 + ":" + timeInSec % 60;
-                t2.setText(s);
+                long minute =  timeInSec / 60;
+                long second = timeInSec % 60;
+                if(minute < 10 && second < 10) {
+                    time = "0" + minute + ":" + "0" + second;
+                } else if (minute < 10){
+                    time = "0" + minute + ":" + second;
+                } else if(second < 10){
+                    time = minute + ":" + "0" + second;
+                } else {
+                    time = minute + ":" + second;
+                }
+                String s = "Time: \n" + time;
+                timerText.setText(s);
+                inGameTimer.setText("Timer: " + time);
             }
 
             @Override
@@ -126,6 +147,24 @@ public class GameActivity extends AppCompatActivity {
         }.start();
 
         /* Listen for button clicks from Jayden's keyboard. */
+        Button playAgain = findViewById(R.id.playAgain);
+        Button returnToMain = findViewById(R.id.gameMainMenu);
+        playAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameActivity.this, GameActivity.class);
+                intent.putExtra("DIFFICULTY", difficulty);
+                startActivity(intent);
+            }
+        });
+        returnToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button a = findViewById(R.id.A);
         Button b = findViewById(R.id.B);
         Button c = findViewById(R.id.C);

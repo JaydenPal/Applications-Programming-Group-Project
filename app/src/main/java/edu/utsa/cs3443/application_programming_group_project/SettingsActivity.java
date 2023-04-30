@@ -18,6 +18,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         Button mainMenu = findViewById(R.id.settingsMainMenu);
         Switch musicSwitch = findViewById(R.id.musicSwitch);
+        musicSwitch.setChecked(MediaPlayerManager.getInstance().isMusicOn());
 
         SettingsController settingsController = new SettingsController(this);
         mainMenu.setOnClickListener(settingsController);

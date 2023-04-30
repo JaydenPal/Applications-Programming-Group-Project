@@ -38,11 +38,7 @@ public class KeyBoardController implements View.OnClickListener {
         if(count > 0) {
             TextView wordView = gameActivity.findViewById(R.id.wordView);
             wordView.setText(new String(gameActivity.getWordDisplay()));
-            if (lettersCorrect == word.length()){
-                Toast t = Toast.makeText(view.getContext(), "YOU WONNNNN!", Toast.LENGTH_LONG);
-                t.show();
-                gameOver = true;
-            }
+            if (lettersCorrect == word.length()) gameOver = true;
         } else {
             /**
              * JAYDEN LEFT OFF HERE NEED TO DRAW PICTURES ON IN CORRECT GUESSES
@@ -69,8 +65,6 @@ public class KeyBoardController implements View.OnClickListener {
                     break;
                 default:
                     hangmanImg = gameActivity.findViewById(R.id.hangman_g6);
-                    Toast t = Toast.makeText(view.getContext(), "GAME OVER U LOSE!!!!!", Toast.LENGTH_LONG);
-                    t.show();
                     gameOver = true;
                     break;
             }
@@ -78,6 +72,16 @@ public class KeyBoardController implements View.OnClickListener {
         }
         b.setVisibility(View.GONE);
         if(gameOver){
+            gameActivity.getTimer().cancel();
+            LinearLayout gameOverLayout = gameActivity.findViewById(R.id.gameOver);
+            gameOverLayout.setVisibility(View.VISIBLE);
+            TextView gameOverMessage = gameActivity.findViewById(R.id.winlosemessage);
+            if ((lettersCorrect == word.length())) {
+                gameOverMessage.setText("You Won!");
+                gameActivity.findViewById(R.id.timetowin).setVisibility(View.VISIBLE);
+            } else {
+                gameOverMessage.setText("You Lost!");
+            }
             LinearLayout keyboard = gameActivity.findViewById(R.id.keyboard);
             for(int i = 0; i < keyboard.getChildCount(); i++){
                 LinearLayout row = (LinearLayout) keyboard.getChildAt(i);
