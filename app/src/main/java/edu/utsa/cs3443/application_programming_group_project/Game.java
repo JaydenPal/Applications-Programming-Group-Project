@@ -8,28 +8,62 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
+    //private static Game singleInstance = null;
     private String word;
+    private int time;
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     public Game(int diff, AssetManager am){
         switch(diff){
             case 0:
                 //easy mode
-                word = loadWord("easy.txt", am);
+                setWord(loadWord("easy.txt", am));
                 break;
             case 1:
                 //medium mode
-                word = loadWord("medium.txt", am);
+                setWord(loadWord("medium.txt", am));
                 break;
             case 2:
                 //hard mode
-                word = loadWord("hard.txt", am);
+                setWord(loadWord("hard.txt", am));
                 break;
             default:
                 //something messed up
-                System.out.println("Lauren made an oopsie ;-;");
+                setWord("Lauren made an oopsie ;-;");
                 break;
         }
     }
+
+    /*public static Game getInstance(int diff, AssetManager am)
+    {
+        if (singleInstance == null)
+            singleInstance = new Game(diff, am);
+
+        return singleInstance;
+    }
+
+    public static Game getInstance()
+    {
+        if (singleInstance == null)
+            singleInstance = new Game();
+
+        return singleInstance;
+    }*/
 
     public String loadWord(String fileName, AssetManager am){
         InputStream inputStream;
@@ -45,11 +79,10 @@ public class Game {
         }
 
         Scanner scnr = new Scanner(inputStream);
-
+        String word = "";
         for(int i = 1; i < 100; i++){
-            String word = "";
+            String line = scnr.nextLine();
             if(i == randomNum && scnr.hasNext()) {
-                String line = scnr.nextLine();
                 word = line;
                 break;
             }
