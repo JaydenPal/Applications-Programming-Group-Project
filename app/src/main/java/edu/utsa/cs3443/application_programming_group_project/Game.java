@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    //private static Game singleInstance = null;
     private String word;
     private int time;
 
@@ -48,23 +47,6 @@ public class Game {
                 break;
         }
     }
-
-    /*public static Game getInstance(int diff, AssetManager am)
-    {
-        if (singleInstance == null)
-            singleInstance = new Game(diff, am);
-
-        return singleInstance;
-    }
-
-    public static Game getInstance()
-    {
-        if (singleInstance == null)
-            singleInstance = new Game();
-
-        return singleInstance;
-    }*/
-
     public String loadWord(String fileName, AssetManager am){
         InputStream inputStream;
         int randomNum;
