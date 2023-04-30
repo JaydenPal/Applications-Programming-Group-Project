@@ -3,6 +3,7 @@ package edu.utsa.cs3443.application_programming_group_project.controller;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,6 +12,8 @@ import edu.utsa.cs3443.application_programming_group_project.R;
 
 public class KeyBoardController implements View.OnClickListener {
     private int numOfIncorrect;
+    private int lettersCorrect;
+    private Boolean gameOver = false;
     GameActivity gameActivity;
     public KeyBoardController(GameActivity gameActivity){
         this.gameActivity = gameActivity;
@@ -30,10 +33,16 @@ public class KeyBoardController implements View.OnClickListener {
                 count++;
             }
         }
+        lettersCorrect += count;
         System.out.println(count);
         if(count > 0) {
             TextView wordView = gameActivity.findViewById(R.id.wordView);
             wordView.setText(new String(gameActivity.getWordDisplay()));
+            if (lettersCorrect == word.length()){
+                Toast t = Toast.makeText(view.getContext(), "YOU WONNNNN!", Toast.LENGTH_LONG);
+                t.show();
+                gameOver = true;
+            }
         } else {
             /**
              * JAYDEN LEFT OFF HERE NEED TO DRAW PICTURES ON IN CORRECT GUESSES
@@ -58,14 +67,25 @@ public class KeyBoardController implements View.OnClickListener {
                 case 5:
                     hangmanImg = gameActivity.findViewById(R.id.hangman_g5);
                     break;
-                case 6:
-                    hangmanImg = gameActivity.findViewById(R.id.hangman_g6);
-                    break;
                 default:
+                    hangmanImg = gameActivity.findViewById(R.id.hangman_g6);
+                    Toast t = Toast.makeText(view.getContext(), "GAME OVER U LOSE!!!!!", Toast.LENGTH_LONG);
+                    t.show();
+                    gameOver = true;
                     break;
             }
             if(hangmanImg != null) hangmanImg.setVisibility(View.VISIBLE);
         }
         b.setVisibility(View.GONE);
+        if(gameOver){
+            LinearLayout keyboard = gameActivity.findViewById(R.id.keyboard);
+            for(int i = 0; i < keyboard.getChildCount(); i++){
+                LinearLayout row = (LinearLayout) keyboard.getChildAt(i);
+                for(int j = 0; j < row.getChildCount(); j++){
+                    Button curButton = (Button) row.getChildAt(j);
+                    curButton.setEnabled(false);
+                }
+            }
+        }
     }
 }

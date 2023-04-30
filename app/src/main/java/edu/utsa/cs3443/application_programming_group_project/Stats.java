@@ -56,7 +56,12 @@ public class Stats {
     }
 
     private Stats(){
-        setInit(1);
+        this.init = 1;
+        this.totalTime = -1;
+        this.longestSolve = "";
+        this.fastestWin = -1;
+        this.losses = -1;
+        this.wins = -1;
     }
 
     public static Stats getInstance()
@@ -77,7 +82,6 @@ public class Stats {
         else{
             setWins(getWins() + 1);
         }
-
         if(word.length() > getLongestSolve().length()){
             setLongestSolve(word);
         }

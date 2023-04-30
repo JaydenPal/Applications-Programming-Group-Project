@@ -22,25 +22,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //initialize difficulty
         Difficulty difficulty = Difficulty.MEDIUM;
-        // Start music service
-//        Intent musicServiceIntent = new Intent(this, MusicService.class);
-//        startService(musicServiceIntent);
-
         // Start music playback
-//        music = MediaPlayer.create(this, R.raw.music);
-//        music.setLooping(true);
-//        music.start();
         MediaPlayerManager.getInstance().startMusic(this);
-
-        int diff = 0;
-
+        //get buttons
         Button play = findViewById(R.id.playButton);
         Button settings = findViewById(R.id.settingButton);
         Button stats = findViewById(R.id.statButton2);
         /*Button easy = findViewById(R.id.easyMode);
         Button medium = findViewById(R.id.medMode);
         Button hard = findViewById(R.id.hardMode);*/
-
 
         play.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,18 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Stop music service
-        Intent musicServiceIntent = new Intent(this, MusicService.class);
-        stopService(musicServiceIntent);
-
-        // Stop music playback
-        music.stop();
-        music.release();
     }
 }
 
