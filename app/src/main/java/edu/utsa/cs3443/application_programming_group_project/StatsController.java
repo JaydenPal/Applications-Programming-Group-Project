@@ -6,18 +6,20 @@ import android.content.res.AssetManager;
 import android.view.View;
 
 public class StatsController implements View.OnClickListener {
-    MainActivity mainActivity;
-    private AssetManager am;
-    private Context c;
+    StatsActivity statsActivity;
 
-//    public StatsController(Context context, MainActivity mainActivity){
-//        c = context;
-//        this.mainActivity = mainActivity;
-//    }
+    public StatsController(StatsActivity statsActivity){
+        this.statsActivity = statsActivity;
+    }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(mainActivity, StatsActivity.class);
-        mainActivity.startActivity(intent);
+        Intent intent = new Intent(statsActivity, MainActivity.class);
+        /*intent.putExtra("WINS", Stats.getInstance().getWins());
+        intent.putExtra("LOSSES", Stats.getInstance().getLosses());
+        intent.putExtra("T_TIME", "Total time: ");
+        intent.putExtra("F_SOLVE", "Fastest");
+        intent.putExtra("L_WORD", );*/
+        statsActivity.startActivity(intent);
     }
 }

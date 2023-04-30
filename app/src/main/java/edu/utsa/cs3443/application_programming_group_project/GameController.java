@@ -33,47 +33,5 @@ public class GameController implements View.OnClickListener {
         Intent intent = new Intent(mainActivity,GameActivity.class);
         intent.putExtra("WORD", word);
         mainActivity.startActivity(intent);
-
-        /*  Note from Lauren:
-        *           I'm gonna level with you,
-        *           I've got no clue how to
-        *           start an activity that will
-        *           return a result. I want it to
-        *           return a long, but nothing I've
-        *           tried will work so far. If
-        *           you can get it working,
-        *           whoopie. I'm at my wit's end.
-        */
-
-        //mainActivity.startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
-
-        /*@Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            if (requestCode == LAUNCH_SECOND_ACTIVITY) {
-                if(resultCode == LAUNCH_PASSED){
-                    result = data.getExtra("RESULT");
-
-                }
-                if (resultCode == LAUNCH_FAILED) {
-                    // Write your code if there's no result
-                }
-            }
-        }*/
     }
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-            /*if (requestCode == LAUNCH_SECOND_ACTIVITY) {
-                if(resultCode == LAUNCH_PASSED){
-                    result = data.getExtra("RESULT");
-
-                }
-                if (resultCode == LAUNCH_FAILED) {
-                    // Write your code if there's no result
-                }
-            }
-    }*/
 }

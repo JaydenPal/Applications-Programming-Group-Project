@@ -22,6 +22,8 @@ import edu.utsa.cs3443.application_programming_group_project.controller.KeyBoard
 
 public class GameActivity extends AppCompatActivity {
     private char[] wordDisplay;
+
+    private long rawTime;
     private String word;
     private CountDownTimer timer;
 
@@ -35,6 +37,25 @@ public class GameActivity extends AppCompatActivity {
 
     public String getWord() {
         return word;
+    }
+
+    public long getRawTime(){
+        return this.rawTime;
+    }
+    public void setRawTime(long t) {
+        this.rawTime = t;
+    }
+
+    /*public boolean getIsGameOn(){
+        return this.isGameOn;
+    }*/
+
+    /*public void setIsGameOn(boolean b){
+        this.isGameOn = b;
+    }*/
+
+    public void gameEnded(int r){
+        Stats.getInstance().updateStats(getRawTime(), r, getWord());
     }
 
     public String getWord(int difficulty) {
@@ -69,10 +90,12 @@ public class GameActivity extends AppCompatActivity {
         int index = random.nextInt(words.size());
         return words.get(index);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        //setIsGameOn(true);
         //get difficulty and word
         int difficulty = getIntent().getIntExtra("DIFFICULTY", 0);
         this.word = getWord(difficulty);
@@ -92,14 +115,11 @@ public class GameActivity extends AppCompatActivity {
         long diff = 1000;
 
         timer = new CountDownTimer(maxCounter , diff ) {
-            private long timeElapsed;
-            public long getTimeElapsed(){
-                return timeElapsed;
-            }
+
             public void onTick(long millisUntilFinished) {
                 String time;
                 long diff = maxCounter - millisUntilFinished;
-                timeElapsed = diff;
+                setRawTime(diff);
                 long timeInSec = diff / 1000;
                 long minute =  timeInSec / 60;
                 long second = timeInSec % 60;
@@ -118,39 +138,10 @@ public class GameActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFinish() {
-
-                /* Note from Lauren:
-                *           This is the idea I had for the
-                *           activity result. I think it would
-                *           work if we can figure out how to
-                *           get results from secondary activities.
-                */
-
-                /* pass back different infos:
-                        win/loss
-                        time it took
-
-                   Look into storing it as one int:
-                        If win: long result = diff + 20000000;
-                        If loss: long result = diff + 10000000;
-                    Thus:
-                        scoreResult = result - 10000000;
-                        if(scoreResult > 3000000){
-                            increment wins++
-                            add (result - 10000000) to total time
-                        }
-                        else{
-                            increment losses++
-                            add result to the total time
-                        }
-
-                */
-            }
+            public void onFinish(){}
 
         }.start();
 
-        /* Listen for button clicks from Jayden's keyboard. */
         Button playAgain = findViewById(R.id.playAgain);
         Button returnToMain = findViewById(R.id.gameMainMenu);
         playAgain.setOnClickListener(new View.OnClickListener() {
