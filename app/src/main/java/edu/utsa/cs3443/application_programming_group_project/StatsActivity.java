@@ -10,5 +10,7 @@ public class StatsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stats);
+        Stats stats = Stats.getInstance();
+        StatsController statsController = new StatsController();
     }
 }

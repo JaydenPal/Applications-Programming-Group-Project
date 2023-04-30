@@ -10,20 +10,27 @@ import android.media.MediaPlayer;
 public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer music;
+    enum Difficulty {
+        EASY,
+        MEDIUM,
+        HARD
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //initialize difficulty
+        Difficulty difficulty = Difficulty.MEDIUM;
         // Start music service
-        Intent musicServiceIntent = new Intent(this, MusicService.class);
-        startService(musicServiceIntent);
+//        Intent musicServiceIntent = new Intent(this, MusicService.class);
+//        startService(musicServiceIntent);
 
         // Start music playback
-        music = MediaPlayer.create(this, R.raw.music);
-        music.setLooping(true);
-        music.start();
+//        music = MediaPlayer.create(this, R.raw.music);
+//        music.setLooping(true);
+//        music.start();
+        MediaPlayerManager.getInstance().startMusic(this);
 
         int diff = 0;
 
@@ -39,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                intent.putExtra("DIFFICULTY", difficulty.ordinal());
                 startActivity(intent);
             }
         });

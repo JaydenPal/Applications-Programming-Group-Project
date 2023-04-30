@@ -2,19 +2,81 @@ package edu.utsa.cs3443.application_programming_group_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class GameActivity extends AppCompatActivity {
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.Key;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
+import edu.utsa.cs3443.application_programming_group_project.controller.KeyBoardController;
+
+public class GameActivity extends AppCompatActivity {
+    private char[] wordDisplay;
+    private String word;
+
+    public char[] getWordDisplay() {
+        return wordDisplay;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public String getWord(int difficulty) {
+        AssetManager am = getAssets();
+        InputStream inStream = null;
+        try {
+            switch (difficulty) {
+                case 0:
+                    inStream = am.open("easy.txt");
+                    break;
+                case 1:
+                    inStream = am.open("medium.txt");
+                    break;
+                case 2:
+                    inStream = am.open("hard.txt");
+                default:
+                    break;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Scanner s = new Scanner(inStream);
+        ArrayList<String> words = new ArrayList<>();
+        while (s.hasNextLine()) {
+            String line = s.nextLine().trim();
+            if (!line.isEmpty()) {
+                words.add(line);
+            }
+        }
+        s.close();
+        Random random = new Random();
+        int index = random.nextInt(words.size());
+        return words.get(index);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-        TextView t1 = findViewById(R.id.placeholder);
-        t1.setText(getIntent().getStringExtra("WORD"));
+        //get difficulty and word
+        int difficulty = getIntent().getIntExtra("DIFFICULTY", 0);
+        this.word = getWord(difficulty);
+        TextView wordView = findViewById(R.id.wordView);
+        this.wordDisplay = new char[word.length()];
+        for(int i = 0; i < word.length(); i++){
+            wordDisplay[i] = '_';
+        }
+        wordView.setText(new String(wordDisplay));
+        //make keyboard controller
+        KeyBoardController keyBoardController = new KeyBoardController(this);
 
         TextView t2 = findViewById(R.id.time);
 
@@ -64,5 +126,58 @@ public class GameActivity extends AppCompatActivity {
         }.start();
 
         /* Listen for button clicks from Jayden's keyboard. */
+        Button a = findViewById(R.id.A);
+        Button b = findViewById(R.id.B);
+        Button c = findViewById(R.id.C);
+        Button d = findViewById(R.id.D);
+        Button e = findViewById(R.id.E);
+        Button f = findViewById(R.id.F);
+        Button g = findViewById(R.id.G);
+        Button h = findViewById(R.id.H);
+        Button i = findViewById(R.id.I);
+        Button j = findViewById(R.id.J);
+        Button k = findViewById(R.id.K);
+        Button l = findViewById(R.id.L);
+        Button m = findViewById(R.id.M);
+        Button n = findViewById(R.id.N);
+        Button o = findViewById(R.id.O);
+        Button p = findViewById(R.id.P);
+        Button q = findViewById(R.id.Q);
+        Button r = findViewById(R.id.R);
+        Button s = findViewById(R.id.S);
+        Button t = findViewById(R.id.T);
+        Button u = findViewById(R.id.U);
+        Button v = findViewById(R.id.V);
+        Button w = findViewById(R.id.W);
+        Button x = findViewById(R.id.X);
+        Button y = findViewById(R.id.Y);
+        Button z = findViewById(R.id.Z);
+
+        a.setOnClickListener(keyBoardController);
+        b.setOnClickListener(keyBoardController);
+        c.setOnClickListener(keyBoardController);
+        d.setOnClickListener(keyBoardController);
+        e.setOnClickListener(keyBoardController);
+        f.setOnClickListener(keyBoardController);
+        g.setOnClickListener(keyBoardController);
+        h.setOnClickListener(keyBoardController);
+        i.setOnClickListener(keyBoardController);
+        j.setOnClickListener(keyBoardController);
+        k.setOnClickListener(keyBoardController);
+        l.setOnClickListener(keyBoardController);
+        m.setOnClickListener(keyBoardController);
+        n.setOnClickListener(keyBoardController);
+        o.setOnClickListener(keyBoardController);
+        p.setOnClickListener(keyBoardController);
+        q.setOnClickListener(keyBoardController);
+        r.setOnClickListener(keyBoardController);
+        s.setOnClickListener(keyBoardController);
+        t.setOnClickListener(keyBoardController);
+        u.setOnClickListener(keyBoardController);
+        v.setOnClickListener(keyBoardController);
+        w.setOnClickListener(keyBoardController);
+        x.setOnClickListener(keyBoardController);
+        y.setOnClickListener(keyBoardController);
+        z.setOnClickListener(keyBoardController);
     }
 }

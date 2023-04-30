@@ -10,15 +10,14 @@ public class StatsController implements View.OnClickListener {
     private AssetManager am;
     private Context c;
 
-    public StatsController(Context context, MainActivity mainActivity){
-        c = context;
-        this.mainActivity = mainActivity;
-    }
+//    public StatsController(Context context, MainActivity mainActivity){
+//        c = context;
+//        this.mainActivity = mainActivity;
+//    }
 
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(mainActivity, StatsActivity.class);
-
         mainActivity.startActivity(intent);
     }
 }
