@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import edu.utsa.cs3443.application_programming_group_project.GameActivity;
 import edu.utsa.cs3443.application_programming_group_project.R;
+import edu.utsa.cs3443.application_programming_group_project.Stats;
 
 public class KeyBoardController implements View.OnClickListener {
     private int numOfIncorrect;
@@ -41,8 +42,9 @@ public class KeyBoardController implements View.OnClickListener {
             if (lettersCorrect == word.length()) gameOver = true;
         } else {
             /**
-             * since no letters correct, guess is wrong, increment numOfIncorrect
-             * and draw the respective image for numOfIncorrect
+             * JAYDEN LEFT OFF HERE NEED TO DRAW PICTURES ON IN CORRECT GUESSES
+             * MAYBE STORE NUMBER OF INCORRECT IN GAME ACTIVITY AS A FIELD AND
+             * MAKE A SWITCH THAT DRAWS A CERTAIN IMAGE DEPENEDING ON THE NUMBER
              */
             numOfIncorrect++;
             ImageView hangmanImg = null;
@@ -63,36 +65,26 @@ public class KeyBoardController implements View.OnClickListener {
                     hangmanImg = gameActivity.findViewById(R.id.hangman_g5);
                     break;
                 default:
-                    /* game is over all parts drawn so set gameOver to true*/
                     hangmanImg = gameActivity.findViewById(R.id.hangman_g6);
                     gameOver = true;
                     break;
             }
-            /* draw the respective image with error check to avoid working on null object*/
             if(hangmanImg != null) hangmanImg.setVisibility(View.VISIBLE);
         }
-        /* remove letter from view */
         b.setVisibility(View.GONE);
-        /*This handles the game ending i.e player won/lost*/
         if(gameOver){
-            /*stop timer and prepare game over layout, win/lose message*/
             gameActivity.getTimer().cancel();
             LinearLayout gameOverLayout = gameActivity.findViewById(R.id.gameOver);
             gameOverLayout.setVisibility(View.VISIBLE);
             TextView gameOverMessage = gameActivity.findViewById(R.id.winlosemessage);
             if ((lettersCorrect == word.length())) {
-                /**
-                 * THIS IS THE GAME WON CODESPACE THIS IS WHERE WE NEED TO UPDATE STATS
-                 * THE WORD IS STORED IN STRING VAR 'word'
-                 * TIME IS STORED in 'gameActivity.getTimer().getTimeElapsed();' UNIT IS MILISECONDS
-                 * LOOK AT UPDATE FUNCTION IN STATS FOR THE REST AND FIGURE IT OUT LOLL <3
-                 */
+                gameActivity.gameEnded(1);
                 gameOverMessage.setText("You Won!");
                 gameActivity.findViewById(R.id.timetowin).setVisibility(View.VISIBLE);
             } else {
+                gameActivity.gameEnded(0);
                 gameOverMessage.setText("You Lost!");
             }
-            /*disable keyboard to prevent user from guessing after game over*/
             LinearLayout keyboard = gameActivity.findViewById(R.id.keyboard);
             for(int i = 0; i < keyboard.getChildCount(); i++){
                 LinearLayout row = (LinearLayout) keyboard.getChildAt(i);
