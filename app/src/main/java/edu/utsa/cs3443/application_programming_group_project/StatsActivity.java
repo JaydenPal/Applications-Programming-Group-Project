@@ -47,7 +47,7 @@ public class StatsActivity extends AppCompatActivity {
         s = "Total time: " + time;
         totalTime.setText(s);
 
-        timeInSec = stats.getTotalTime() / 1000;
+        timeInSec = stats.getFastestWin() / 1000;
         minute =  timeInSec / 60;
         second = timeInSec % 60;
         if(minute < 10 && second < 10) {

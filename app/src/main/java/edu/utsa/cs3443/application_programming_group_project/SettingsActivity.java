@@ -17,6 +17,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         Button mainMenu = findViewById(R.id.settingsMainMenu);
+        Button stats = findViewById(R.id.statButton2);
         Switch musicSwitch = findViewById(R.id.musicSwitch);
         musicSwitch.setChecked(MediaPlayerManager.getInstance().isMusicOn());
 
@@ -24,5 +25,12 @@ public class SettingsActivity extends AppCompatActivity {
         mainMenu.setOnClickListener(settingsController);
         MusicSwitchController musicSwitchController = new MusicSwitchController(this);
         musicSwitch.setOnClickListener(musicSwitchController);
+        stats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, StatsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

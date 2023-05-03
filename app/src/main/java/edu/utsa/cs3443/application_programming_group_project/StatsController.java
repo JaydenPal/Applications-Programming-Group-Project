@@ -15,11 +15,6 @@ public class StatsController implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(statsActivity, MainActivity.class);
-        /*intent.putExtra("WINS", Stats.getInstance().getWins());
-        intent.putExtra("LOSSES", Stats.getInstance().getLosses());
-        intent.putExtra("T_TIME", "Total time: ");
-        intent.putExtra("F_SOLVE", "Fastest");
-        intent.putExtra("L_WORD", );*/
         statsActivity.startActivity(intent);
     }
 }

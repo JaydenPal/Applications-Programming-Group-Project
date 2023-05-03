@@ -74,7 +74,6 @@ public class Stats {
     }
 
     public void updateStats(long time, int result, String word){
-
         //increment losses or wins
         if(result == 0){
             setLosses(getLosses() + 1);
@@ -92,7 +91,7 @@ public class Stats {
         setTotalTime(getTotalTime() + time);
 
         //update fastest record
-        if(getFastestWin() == 0 || getFastestWin() > time){
+        if((getFastestWin() == 0 || getFastestWin() > time) && result == 1){
             setFastestWin(time);
         }
     }
