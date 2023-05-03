@@ -25,8 +25,8 @@ public class KeyBoardController implements View.OnClickListener {
         Button b = (Button) view;
         String letter = b.getText().toString();
         String word  = gameActivity.getWord();
-        System.out.println(letter);
-        System.out.println(word);
+//        System.out.println(letter);
+//        System.out.println(word);
         int count = 0;
         for(int i = 0; i < word.length(); i++){
             if(letter.toLowerCase().charAt(0) == word.toLowerCase().charAt(i)){

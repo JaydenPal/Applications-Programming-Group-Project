@@ -1,6 +1,8 @@
 package edu.utsa.cs3443.application_programming_group_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.view.View;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         Button easyButton = findViewById(R.id.easyButton);
         Button mediumButton = findViewById(R.id.mediumButton);
         Button hardButton = findViewById(R.id.hardButton);
+        findViewById(R.id.easyButton).setBackgroundColor(Color.LTGRAY);
+        findViewById(R.id.hardButton).setBackgroundColor(Color.LTGRAY);
         //connect controller
         DifficultyController difficultyController = new DifficultyController(this);
         easyButton.setOnClickListener(difficultyController);
