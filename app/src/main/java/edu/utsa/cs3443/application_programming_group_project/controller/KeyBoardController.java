@@ -83,7 +83,7 @@ public class KeyBoardController implements View.OnClickListener {
                 gameActivity.findViewById(R.id.timetowin).setVisibility(View.VISIBLE);
             } else {
                 gameActivity.gameEnded(0);
-                gameOverMessage.setText("You Lost!");
+                gameOverMessage.setText("You Lost!\nThe word was: " + word);
             }
             LinearLayout keyboard = gameActivity.findViewById(R.id.keyboard);
             for(int i = 0; i < keyboard.getChildCount(); i++){
